@@ -7,6 +7,8 @@ import Announcement from "../components/Announcement";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Container = styled.div``;
 
@@ -117,7 +119,20 @@ const Button = styled.button`
   }
 `;
 
-const Product = () => {
+const Product = ({ cat, filters, sort }) => {
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/products");
+        console.log(res);
+      } catch (err) {}
+    };
+    getProducts();
+  }, [cat]);
+
   return (
     <Container>
       <Navbar />
